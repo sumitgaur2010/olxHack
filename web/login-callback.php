@@ -28,8 +28,12 @@ echo 'Name: ' . $user;
 $response = $fb->get($user["id"].'/likes', 'CAAGlGdaj9j0BAIARyTGImBPDqD7HElb0qtukIMAO0ghBUNCf3ZBa1M56Ai2PTVKyRKGKVXtOv9npAxDz35vTTRzB6wzFDERx2DGk0MYqaZCIQJvsZCAnYrFaBmilcfV918JyR7S5tVRIEZClmnvyKEoRrjoR19IoFRCIYhnjB9WxP0QV7j7LfHP3GVPEIZBFy55ZAZBuAoxcwZDZD');
 $likesArray = $response->getDecodedBody()['data'];
 print_r($likesArray);
-echo 'dsadsadsadsa'."\n";
-getDataFromOlx();
+echo 'RESPONSE FROM'."\n";
+foreach ($likesArray as $like){
+getDataFromOlx($like['name']);
+}
+
+
 function getDataFromOlx()
 {
  $curl_handle=curl_init();
