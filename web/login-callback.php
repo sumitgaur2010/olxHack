@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once __DIR__ . '/../facebook-php-sdk-v4-5.0-dev/src/Facebook/autoload.php';
 
 $fb = new Facebook\Facebook([
@@ -30,23 +31,23 @@ $likesArray = $response->getDecodedBody()['data'];
 print_r($likesArray);
 echo 'RESPONSE FROM'."\n";
 foreach ($likesArray as $like){
-getDataFromOlx($like['name']);
+	getDataFromOlx($like['name']);
 }
 
 
-function getDataFromOlx()
+function getDataFromOlx($search)
 {
- $curl_handle=curl_init();
-  curl_setopt($curl_handle,CURLOPT_URL,'http://olx.in/all-results/q-car-hy/');
-  curl_setopt($curl_handle,CURLOPT_CONNECTTIMEOUT,2);
-  curl_setopt($curl_handle,CURLOPT_RETURNTRANSFER,1);
-  $buffer = curl_exec($curl_handle);
-  curl_close($curl_handle);
-  if (empty($buffer)){
-      print "Nothing returned from url.<p>";
-  }
-  else{
-      print $buffer;
-  }
+	$curl_handle=curl_init();
+	curl_setopt($curl_handle,CURLOPT_URL,'http://olx.in/all-results/q-/'.$search);
+	curl_setopt($curl_handle,CURLOPT_CONNECTTIMEOUT,2);
+	curl_setopt($curl_handle,CURLOPT_RETURNTRANSFER,1);
+	$buffer = curl_exec($curl_handle);
+	curl_close($curl_handle);
+	if (empty($buffer)){
+		print "Nothing returned from url.<p>";
+	}
+	else{
+		print $buffer;
+	}
 
 }
