@@ -11,7 +11,7 @@ $fb = new Facebook\Facebook([
 function getResponseFromFaceBook($fb){
 	try {
 		// Returns a `Facebook\FacebookResponse` object
-		$response = $fb->get('/me?fields=id,name', 'CAAGlGdaj9j0BAKCNTQB9GRyJaMZAXKp4rIrZAKDtWOoYXyU94qq6VLKXuEX2MYm4ZCtWOoTfVAc3cbU6d6HKAgS5XrNGTBpe21kXJ2L3Q3wQQjxz72peGJt8gmVKdCikshhHBDmMlaBid5D0rLdIpRrUD3YqUVoYyhdogVFvli2aiN8PeY826vODq8iApWwRYIj4rIhWwZDZD');
+		$response = $fb->get('/me?fields=id,name', 'CAAGlGdaj9j0BADwSZCIZBZBKRZBdmVRVnppUm6TI33ptZCfjGQam0eQCmRGksEXFHGKQ4INQfP8QD5ddIFAaT6SGTp8KyCakITJkp93IRZCS2SBLe0PVByX4NSkRydlrkaWRZAMwN4BLM7ZC8QGiVC5dDToU1G2F9fCGW0GN7zizZBQAoxZB5cSBIDGhyWPtTmpNYZD');
 		return $response;
 	} catch(Facebook\Exceptions\FacebookResponseException $e) {
 		echo 'Graph returned an error: ' . $e->getMessage();
@@ -26,10 +26,10 @@ $response=getResponseFromFaceBook($fb);
 $user = $response->getGraphUser();
 
 echo 'Name: ' . $user;
-$response = $fb->get($user["id"].'/likes', 'CAAGlGdaj9j0BAKCNTQB9GRyJaMZAXKp4rIrZAKDtWOoYXyU94qq6VLKXuEX2MYm4ZCtWOoTfVAc3cbU6d6HKAgS5XrNGTBpe21kXJ2L3Q3wQQjxz72peGJt8gmVKdCikshhHBDmMlaBid5D0rLdIpRrUD3YqUVoYyhdogVFvli2aiN8PeY826vODq8iApWwRYIj4rIhWwZDZD');
+$response = $fb->get($user["id"].'/likes', 'CAAGlGdaj9j0BADwSZCIZBZBKRZBdmVRVnppUm6TI33ptZCfjGQam0eQCmRGksEXFHGKQ4INQfP8QD5ddIFAaT6SGTp8KyCakITJkp93IRZCS2SBLe0PVByX4NSkRydlrkaWRZAMwN4BLM7ZC8QGiVC5dDToU1G2F9fCGW0GN7zizZBQAoxZB5cSBIDGhyWPtTmpNYZD');
 $likesArray = $response->getDecodedBody()['data'];
 print_r($likesArray);
-echo 'RESPONSE FROM'."\n";
+echo "\n".'RESPONSE FROM OLX'."\n";
 foreach ($likesArray as $like){
 	getDataFromOlx($like['name']);
 }
@@ -37,9 +37,17 @@ foreach ($likesArray as $like){
 
 function getDataFromOlx($search)
 {
-
+$url = 'http://olx.in/all-results/q-'.urlencode($search);
+echo $url."\n";
 print_r(file_get_contents('http://olx.in/all-results/q-'.urlencode($search)));
-
+/*$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, $url);
+curl_setopt($ch, CURLOPT_HEADER, true);
+curl_setopt($ch, CURLOPT_FOLLOWLOCATION, false);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+$a = curl_exec($ch);
+if(preg_match('#Location: (.*)#', $a, $r))
+ $l = trim($r[1]);
 //Header('''http://olx.in/all-results/q-'.urlencode($search)));
 /*	$curl_handle=curl_init();
 	curl_setopt($curl_handle,CURLOPT_URL,'http://olx.in/all-results/q-'.urlencode($search));
