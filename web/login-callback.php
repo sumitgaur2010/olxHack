@@ -37,11 +37,14 @@ foreach ($likesArray as $like){
 
 function getDataFromOlx($search)
 {
-//die('http://olx.in/all-results/q-'.urlencode($search));
-	$curl_handle=curl_init();
+
+print_r(file_get_contents('http://olx.in/all-results/q-'.urlencode($search)));
+
+//Header('''http://olx.in/all-results/q-'.urlencode($search)));
+/*	$curl_handle=curl_init();
 	curl_setopt($curl_handle,CURLOPT_URL,'http://olx.in/all-results/q-'.urlencode($search));
-	curl_setopt($curl_handle,CURLOPT_CONNECTTIMEOUT,2);
 	curl_setopt($curl_handle,CURLOPT_RETURNTRANSFER,1);
+	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
 	$buffer = curl_exec($curl_handle);
 	curl_close($curl_handle);
 	if (empty($buffer)){
@@ -50,5 +53,5 @@ function getDataFromOlx($search)
 	else{
 		print $buffer;
 	}
-
+*/
 }
