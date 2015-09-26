@@ -11,7 +11,7 @@ $fb = new Facebook\Facebook([
 function getResponseFromFaceBook($fb){
 	try {
 		// Returns a `Facebook\FacebookResponse` object
-		$response = $fb->get('/me?fields=id,name', 'CAAGlGdaj9j0BAIARyTGImBPDqD7HElb0qtukIMAO0ghBUNCf3ZBa1M56Ai2PTVKyRKGKVXtOv9npAxDz35vTTRzB6wzFDERx2DGk0MYqaZCIQJvsZCAnYrFaBmilcfV918JyR7S5tVRIEZClmnvyKEoRrjoR19IoFRCIYhnjB9WxP0QV7j7LfHP3GVPEIZBFy55ZAZBuAoxcwZDZD');
+		$response = $fb->get('/me?fields=id,name', 'CAAGlGdaj9j0BAKCNTQB9GRyJaMZAXKp4rIrZAKDtWOoYXyU94qq6VLKXuEX2MYm4ZCtWOoTfVAc3cbU6d6HKAgS5XrNGTBpe21kXJ2L3Q3wQQjxz72peGJt8gmVKdCikshhHBDmMlaBid5D0rLdIpRrUD3YqUVoYyhdogVFvli2aiN8PeY826vODq8iApWwRYIj4rIhWwZDZD');
 		return $response;
 	} catch(Facebook\Exceptions\FacebookResponseException $e) {
 		echo 'Graph returned an error: ' . $e->getMessage();
@@ -26,7 +26,7 @@ $response=getResponseFromFaceBook($fb);
 $user = $response->getGraphUser();
 
 echo 'Name: ' . $user;
-$response = $fb->get($user["id"].'/likes', 'CAAGlGdaj9j0BAIARyTGImBPDqD7HElb0qtukIMAO0ghBUNCf3ZBa1M56Ai2PTVKyRKGKVXtOv9npAxDz35vTTRzB6wzFDERx2DGk0MYqaZCIQJvsZCAnYrFaBmilcfV918JyR7S5tVRIEZClmnvyKEoRrjoR19IoFRCIYhnjB9WxP0QV7j7LfHP3GVPEIZBFy55ZAZBuAoxcwZDZD');
+$response = $fb->get($user["id"].'/likes', 'CAAGlGdaj9j0BAKCNTQB9GRyJaMZAXKp4rIrZAKDtWOoYXyU94qq6VLKXuEX2MYm4ZCtWOoTfVAc3cbU6d6HKAgS5XrNGTBpe21kXJ2L3Q3wQQjxz72peGJt8gmVKdCikshhHBDmMlaBid5D0rLdIpRrUD3YqUVoYyhdogVFvli2aiN8PeY826vODq8iApWwRYIj4rIhWwZDZD');
 $likesArray = $response->getDecodedBody()['data'];
 print_r($likesArray);
 echo 'RESPONSE FROM'."\n";
@@ -37,8 +37,9 @@ foreach ($likesArray as $like){
 
 function getDataFromOlx($search)
 {
+//die('http://olx.in/all-results/q-/'.$search);
 	$curl_handle=curl_init();
-	curl_setopt($curl_handle,CURLOPT_URL,'http://olx.in/all-results/q-/'.$search);
+	curl_setopt($curl_handle,CURLOPT_URL,'http://olx.in/all-results/q-/'.urlencode($search));
 	curl_setopt($curl_handle,CURLOPT_CONNECTTIMEOUT,2);
 	curl_setopt($curl_handle,CURLOPT_RETURNTRANSFER,1);
 	$buffer = curl_exec($curl_handle);
